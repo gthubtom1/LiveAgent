@@ -274,6 +274,9 @@ export const EN_US_SETTINGS_TRANSLATIONS = {
   "settings.providerUseSystemProxy": "Use app proxy",
   "settings.providerUseSystemProxyDesc":
     "Route this provider's model requests through the app proxy. Falls back to a direct connection while the app proxy is disabled.",
+  "settings.globalRetryTitle": "Network Resilience & Retry Policy",
+  "settings.globalRetryLabel": "Global Model Stream Retry",
+  "settings.globalRetryDesc": "Applies across all model providers. Automatically retries upon connection drops, 429 rate limits, or 5xx errors; cancelable anytime via Esc.",
   "settings.providerStreamRetry": "Stream retry",
   "settings.providerStreamRetryDesc":
     "How many times to reconnect automatically when the connection drops before any content arrives.",

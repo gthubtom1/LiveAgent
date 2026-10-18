@@ -1567,6 +1567,10 @@ export function normalizeSystemSettings(input: unknown): SystemSettings {
     // 安全侧开关：任何非 true 的值都收敛成 false。
     cuaAllowSelfTargeting: obj.cuaAllowSelfTargeting === true,
     commandSafetyMode: normalizeCommandSafetyMode(obj.commandSafetyMode),
+    ...((): { globalRetryPolicy?: ProviderRetryPolicy } => {
+      const globalRetryPolicy = normalizeProviderRetryPolicy(obj.globalRetryPolicy);
+      return globalRetryPolicy ? { globalRetryPolicy } : {};
+    })(),
     browserAutomationMode: normalizeBrowserAutomationMode(obj.browserAutomationMode),
     defaultTimeZone: normalizeDefaultTimeZone(obj.defaultTimeZone),
     ...(typeof obj.resolvedTimeZone === "string" && obj.resolvedTimeZone.trim()

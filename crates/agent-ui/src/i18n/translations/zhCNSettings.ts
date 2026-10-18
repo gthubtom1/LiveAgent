@@ -260,6 +260,9 @@ export const ZH_CN_SETTINGS_TRANSLATIONS = {
   "settings.providerUseSystemProxy": "使用应用代理",
   "settings.providerUseSystemProxyDesc":
     "该供应商的模型请求经应用代理出网；应用代理未启用时保持直连。",
+  "settings.globalRetryTitle": "网络稳定性与重试策略",
+  "settings.globalRetryLabel": "全局模型请求重试",
+  "settings.globalRetryDesc": "全局统一生效。无论使用哪个模型商，遭遇网络断开、429 限流或 5xx 错误时自动排队重试，按 Esc 可随时中断。",
   "settings.providerStreamRetry": "流式重试",
   "settings.providerStreamRetryDesc": "连接中断且尚未输出内容时自动重连的次数。",
   "settings.providerStreamRetryDefault": "默认",

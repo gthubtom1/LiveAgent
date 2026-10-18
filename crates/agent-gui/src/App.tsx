@@ -31,6 +31,7 @@ import { useMacOsAppHeaderHeight } from "./components/MacOsTitleBarSpacer";
 import { ReleaseAnnouncementDialog } from "./components/ReleaseAnnouncementDialog";
 import { WindowsTitleBar } from "./components/WindowsTitleBar";
 import { useAppUpdateController } from "./lib/appUpdates";
+import { setActiveGlobalRetryPolicy } from "./lib/providers/runtime/retryPolicy";
 import { setRetryErrorExtension } from "./lib/providers/runtime/streamRetry";
 import { useReleaseAnnouncementController } from "./lib/releaseAnnouncement";
 import {
@@ -432,6 +433,10 @@ export default function App() {
       patterns: settings.retryErrorSettings.customPatterns,
     });
   }, [settings.retryErrorSettings]);
+
+  useEffect(() => {
+    setActiveGlobalRetryPolicy(settings.system.globalRetryPolicy);
+  }, [settings.system.globalRetryPolicy]);
 
   const queueSettingsSave = useCallback(
     (prev: AppSettings, next: AppSettings, fallback: string, publishSync: boolean) => {

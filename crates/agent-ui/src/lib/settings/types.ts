@@ -350,6 +350,8 @@ export type SystemSettings = {
    */
   cuaAllowSelfTargeting?: boolean;
   commandSafetyMode: CommandSafetyMode;
+  /** 全局流式重试策略；缺省为默认（5次）。所有供应商未显式覆写时继承该策略。 */
+  globalRetryPolicy?: ProviderRetryPolicy;
   /** Browser 工具的浏览器接入模式;缺省 auto(旧快照缺失该字段时同 auto)。 */
   browserAutomationMode: BrowserAutomationMode;
   /**

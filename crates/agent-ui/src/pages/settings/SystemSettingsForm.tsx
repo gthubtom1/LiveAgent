@@ -11,6 +11,7 @@ import {
   type ExecutionMode,
   type FontScaleSettings,
   isValidSystemProxyHost,
+  type ProviderRetryPolicy,
   resolveDefaultTimeZone,
   type SystemProxyConfig,
   type SystemProxyType,
@@ -163,6 +164,30 @@ export function SystemSettingsForm(props: SettingsSectionProps) {
   const activeExecutionMode =
     executionModeOptions.find((option) => option.value === executionMode) ??
     executionModeOptions[0];
+
+  const currentGlobalPolicy = settings.system.globalRetryPolicy;
+  const globalRetrySelectValue =
+    currentGlobalPolicy?.mode === "infinite"
+      ? "infinite"
+      : currentGlobalPolicy?.mode === "off"
+        ? "off"
+        : currentGlobalPolicy?.mode === "custom"
+          ? String(currentGlobalPolicy.maxRetries)
+          : "default";
+
+  function handleGlobalRetryChange(mode: string) {
+    let policy: ProviderRetryPolicy | undefined;
+    if (mode === "infinite") {
+      policy = { mode: "infinite" };
+    } else if (mode === "off") {
+      policy = { mode: "off" };
+    } else if (mode === "10" || mode === "30") {
+      policy = { mode: "custom", maxRetries: Number(mode) };
+    } else {
+      policy = undefined;
+    }
+    setSettings((prev) => updateSystem(prev, { globalRetryPolicy: policy }));
+  }
 
   function getThemeLabel(theme: Theme) {
     if (theme === "light") return t("settings.light");
@@ -369,6 +394,35 @@ export function SystemSettingsForm(props: SettingsSectionProps) {
 
   return (
     <div className="settings-system-section space-y-8 pb-10">
+      <SettingsGroup title={t("settings.globalRetryTitle")}>
+        <SettingsRow
+          title={t("settings.globalRetryLabel")}
+          description={t("settings.globalRetryDesc")}
+          control={
+            <SettingsToggleGroup
+              value={[globalRetrySelectValue]}
+              aria-label={t("settings.globalRetryLabel")}
+              onValueChange={(values) => {
+                const next = values[0];
+                if (next) handleGlobalRetryChange(next);
+              }}
+            >
+              <SettingsToggleGroupItem value="default">
+                {t("settings.providerStreamRetryDefault")}
+              </SettingsToggleGroupItem>
+              <SettingsToggleGroupItem value="infinite">
+                {t("settings.providerStreamRetryInfinite")}
+              </SettingsToggleGroupItem>
+              <SettingsToggleGroupItem value="10">10 次</SettingsToggleGroupItem>
+              <SettingsToggleGroupItem value="30">30 次</SettingsToggleGroupItem>
+              <SettingsToggleGroupItem value="off">
+                {t("settings.providerStreamRetryOff")}
+              </SettingsToggleGroupItem>
+            </SettingsToggleGroup>
+          }
+        />
+      </SettingsGroup>
+
       <SettingsGroup title={t("settings.executionMode")}>
         <SettingsRow
           title={t("settings.defaultExecutionMode")}
