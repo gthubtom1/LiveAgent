@@ -2,11 +2,11 @@
   <img src="docs/images/banner.webp" alt="LiveAgent" />
 </p>
 
-<h1 align="center">LiveAgent</h1>
+<h1 align="center">LiveAgent (Enhanced 定制增强版)</h1>
 
 <p align="center">
-  <strong>Your Local-First AI Agent Desktop</strong><br/>
-  多模型接入 · 本地工具执行 · MCP & Skills 生态 · 远程 Gateway
+  <strong>Your Local-First AI Agent Desktop with Sticky Rules & Infinite Retry</strong><br/>
+  核心人设与粘性规则常驻 · 流式无限重试 · 多模型接入 · 本地工具执行 · MCP & Skills 生态
 </p>
 
 <p align="center">
@@ -77,7 +77,21 @@
 
 ---
 
-## 为什么是 LiveAgent?
+## ⚡ 二开专属特性 (Enhanced Features)
+
+本项目基于 LiveAgent 官方源码进行深度定制与稳定性加固，完美融入以下核心增强：
+
+- 🎭 **人设与规则多模板并行生效 (Sticky Personality & Rules)**
+  - 解除原版“一次只能启用一个全局模板”的硬性限制，允许同时勾选开启 **人设模板 (Personality)** 与 **粘性规则 (Rules)** 并按序合并生效；
+  - 100% 沿用原厂居中 Modal 大编辑框（支持字符计数、等宽代码字体、自适应高度）；
+  - **保存即实时**：编辑保存后立即写入本地配置并在运行时热感知生效，即使上下文触发长会话压缩（Compaction）也绝不脱落；
+  - 提供一键 **「载入推荐人设与规则」**，开箱即用。
+- 🛡️ **流式无限重试机制 (Infinite Stream Retry)**
+  - 扩展底层重试状态机，支持 `mode: "infinite"` 档位；
+  - 遭遇上游 HTTP 429 限流、网络闪断或 5xx 错误时自动排队重连，按 `Esc` 键或中止按钮随时可安全取消；
+  - 供应商设置中提供原厂胶囊切换器：`[ 默认 | 🔥 无限重试 (∞) | 自定义 | 关闭 ]`。
+
+---
 
 LiveAgent 是一个 **本地优先** 的 AI Agent 桌面客户端。它将大语言模型的推理能力与本地系统工具深度整合,让 AI 能够真正操作你的文件系统、执行命令、管理定时任务,同时通过 Gateway 实现远程访问与协作。
 
@@ -124,7 +138,7 @@ LiveAgent 是一个 **本地优先** 的 AI Agent 桌面客户端。它将大语
 
 ## 下载与部署
 
-安装包由 GitHub Actions 自动构建、签名并发布,请前往 [**GitHub Releases**](https://github.com/Stack-Cairn/LiveAgent/releases/latest) 获取最新版本。
+安装包由 GitHub Actions 自动构建与发布，请前往 [**GitHub Releases**](https://github.com/gthubtom1/LiveAgent/releases) 获取最新版本。
 
 ### 系统要求
 
@@ -134,28 +148,25 @@ LiveAgent 是一个 **本地优先** 的 AI Agent 桌面客户端。它将大语
 | Windows | x64,需 WebView2 运行时(Windows 11 已内置) |
 | Linux | x86_64,需 WebKitGTK 4.1(Ubuntu 22.04+ / Debian 12+ 等) |
 
+### Windows 用户
+
+从 [Releases](https://github.com/gthubtom1/LiveAgent/releases) 按需选择一种安装方式:
+
+| 方式 | 文件 | 适合 |
+|---|---|---|
+| 安装向导 | `LiveAgent-<版本>-Windows-x64-Setup.exe` | 大多数用户 (推荐) |
+| 便携版 | `LiveAgent-<版本>-Windows-x64-portable.zip` | 免安装,解压即用 |
+
 ### macOS 用户
 
-从 [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest) 下载对应芯片的 DMG,打开后将 LiveAgent 拖入「应用程序」:
+从 [Releases](https://github.com/gthubtom1/LiveAgent/releases) 下载对应芯片的 DMG,打开后将 LiveAgent 拖入「应用程序」:
 
 - Apple Silicon(M 系列):`LiveAgent-<版本>-macOS-aarch64.dmg`
 - Intel:`LiveAgent-<版本>-macOS-x64.dmg`
 
-> 安装包已签名并通过 Apple 公证,首次启动无需在安全设置中手动放行。
-
-### Windows 用户
-
-从 [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest) 按需选择一种安装方式:
-
-| 方式 | 文件 | 适合 |
-|---|---|---|
-| 安装向导 | `LiveAgent-<版本>-Windows-x64-Setup.exe` | 大多数用户 |
-| MSI 包 | `LiveAgent-<版本>-Windows-x64.msi` | 企业分发 / 静默安装 |
-| 便携版 | `LiveAgent-<版本>-Windows-x64-portable.zip` | 免安装,解压即用 |
-
 ### Linux 用户
 
-从 [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest) 按发行版选择:
+从 [Releases](https://github.com/gthubtom1/LiveAgent/releases) 按发行版选择:
 
 | 格式 | 适用发行版 | 安装方式 |
 |---|---|---|
@@ -409,29 +420,15 @@ LiveAgent/
 
 ---
 
-## 👥 贡献者
+## 👥 原项目与贡献致谢
 
-感谢所有为 LiveAgent 做出贡献的朋友们！
+感谢上游开源项目与所有为 LiveAgent 做出贡献的朋友们！
 
-<a href="https://github.com/Stack-Cairn/LiveAgent/graphs/contributors">
-  <img src="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/contributors.svg" alt="Contributors" />
-</a>
-
----
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=Stack-Cairn%2FLiveAgent&type=date&legend=top-left">
-
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-dark.svg" />
-   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-light.svg" />
-   <img alt="Star History Chart" src="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-light.svg" />
- </picture>
-</a>
+- 上游开源仓库：[Stack-Cairn/LiveAgent](https://github.com/Stack-Cairn/LiveAgent)
+- 定制增强维护：[gthubtom1/LiveAgent](https://github.com/gthubtom1/LiveAgent)
 
 ---
 
 ## License
 
-MIT © StackCairn
+MIT © LiveAgent Contributors & gthubtom1

@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Url};
 use tauri_plugin_updater::UpdaterExt;
 
-const DEFAULT_UPDATE_REPOSITORY: &str = "Stack-Cairn/LiveAgent";
+const DEFAULT_UPDATE_REPOSITORY: &str = "gthubtom1/LiveAgent";
 const UPDATE_MANIFEST_ASSET: &str = "latest.json";
 
 #[derive(Debug, Clone, Serialize)]

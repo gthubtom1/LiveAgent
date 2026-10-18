@@ -33,7 +33,7 @@ pub fn dynamic_register(
 ) -> Result<RegisteredClient, String> {
     let mut body = json!({
         "client_name": "LiveAgent",
-        "client_uri": "https://github.com/Stack-Cairn/LiveAgent",
+        "client_uri": "https://github.com/gthubtom1/LiveAgent",
         "redirect_uris": [redirect_uri],
         "grant_types": ["authorization_code", "refresh_token"],
         "response_types": ["code"],

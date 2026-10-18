@@ -2,11 +2,11 @@
   <img src="docs/images/banner.webp" alt="LiveAgent" />
 </p>
 
-<h1 align="center">LiveAgent</h1>
+<h1 align="center">LiveAgent (Enhanced Edition)</h1>
 
 <p align="center">
-  <strong>Your Local-First AI Agent Desktop</strong><br/>
-  Multi-model access · Local tool execution · MCP & Skills ecosystem · Remote Gateway
+  <strong>Your Local-First AI Agent Desktop with Sticky Rules & Infinite Retry</strong><br/>
+  Sticky Personality & Rules · Infinite Stream Retry · Multi-model access · Local tools · MCP & Skills
 </p>
 
 <p align="center">
@@ -76,7 +76,21 @@
 
 ---
 
-## Why LiveAgent?
+## ⚡ Enhanced Features
+
+This fork adds critical workflow and resilience enhancements on top of the original LiveAgent:
+
+- 🎭 **Sticky Personality & Rules Concurrency**
+  - Removed the single-template restriction. Concurrently enable your **Personality template** and **Rules template** with automatic ordered merging;
+  - Native centered modal editor with monospace typography, line count, and character metrics;
+  - **Save & Apply Instantly**: Hot-reloaded into runtime memory; survives long conversation compactions;
+  - One-click **"Load Recommended Presets"** for instant setup.
+- 🛡️ **Infinite Stream Retry**
+  - Extended retry state machine supporting `mode: "infinite"`;
+  - Auto-retries through rate limits (429s), connection timeouts, and proxy 5xx errors; cancelable anytime via `Esc`;
+  - Native capsule selector in provider settings: `[ Default | 🔥 Infinite (∞) | Custom | Off ]`.
+
+---
 
 LiveAgent is a **local-first** AI agent desktop client. It deeply integrates large language model reasoning with local system tools, so the AI can genuinely operate your file system, run commands, and manage scheduled tasks — while the Gateway enables remote access and collaboration.
 
@@ -123,7 +137,7 @@ LiveAgent is a **local-first** AI agent desktop client. It deeply integrates lar
 
 ## Download & Deployment
 
-Installers are automatically built, signed, and published by GitHub Actions — grab the latest version from [**GitHub Releases**](https://github.com/Stack-Cairn/LiveAgent/releases/latest).
+Installers are automatically built and published by GitHub Actions — grab the latest version from [**GitHub Releases**](https://github.com/gthubtom1/LiveAgent/releases).
 
 ### System Requirements
 
@@ -133,28 +147,25 @@ Installers are automatically built, signed, and published by GitHub Actions — 
 | Windows | x64; requires the WebView2 runtime (bundled with Windows 11) |
 | Linux | x86_64; requires WebKitGTK 4.1 (Ubuntu 22.04+ / Debian 12+, etc.) |
 
+### Windows
+
+Pick an installation method from [Releases](https://github.com/gthubtom1/LiveAgent/releases):
+
+| Method | File | Best for |
+|---|---|---|
+| Setup wizard | `LiveAgent-<version>-Windows-x64-Setup.exe` | Most users (Recommended) |
+| Portable | `LiveAgent-<version>-Windows-x64-portable.zip` | No install — unzip and run |
+
 ### macOS
 
-Download the DMG matching your chip from [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest), open it, and drag LiveAgent into Applications:
+Download the DMG matching your chip from [Releases](https://github.com/gthubtom1/LiveAgent/releases), open it, and drag LiveAgent into Applications:
 
 - Apple Silicon (M-series): `LiveAgent-<version>-macOS-aarch64.dmg`
 - Intel: `LiveAgent-<version>-macOS-x64.dmg`
 
-> The installer is signed and notarized by Apple — no manual security override is needed on first launch.
-
-### Windows
-
-Pick an installation method from [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest):
-
-| Method | File | Best for |
-|---|---|---|
-| Setup wizard | `LiveAgent-<version>-Windows-x64-Setup.exe` | Most users |
-| MSI package | `LiveAgent-<version>-Windows-x64.msi` | Enterprise distribution / silent install |
-| Portable | `LiveAgent-<version>-Windows-x64-portable.zip` | No install — unzip and run |
-
 ### Linux
 
-Choose by distribution from [Releases](https://github.com/Stack-Cairn/LiveAgent/releases/latest):
+Choose by distribution from [Releases](https://github.com/gthubtom1/LiveAgent/releases):
 
 | Format | Distributions | Install |
 |---|---|---|
@@ -409,29 +420,15 @@ Install frontend dependencies once from the repository root with `pnpm install -
 
 ---
 
-## 👥 Contributors
+## 👥 Upstream & Acknowledgements
 
-Thanks to everyone who has contributed to LiveAgent!
+Special thanks to upstream project and all contributors:
 
-<a href="https://github.com/Stack-Cairn/LiveAgent/graphs/contributors">
-  <img src="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/contributors.svg" alt="Contributors" />
-</a>
-
----
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=Stack-Cairn%2FLiveAgent&type=date&legend=top-left">
-
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-dark.svg" />
-   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-light.svg" />
-   <img alt="Star History Chart" src="https://raw.githubusercontent.com/Stack-Cairn/LiveAgent/chart-assets/star-history-light.svg" />
- </picture>
-</a>
+- Upstream Repository: [Stack-Cairn/LiveAgent](https://github.com/Stack-Cairn/LiveAgent)
+- Enhanced Fork: [gthubtom1/LiveAgent](https://github.com/gthubtom1/LiveAgent)
 
 ---
 
 ## License
 
-MIT © StackCairn
+MIT © LiveAgent Contributors & gthubtom1
