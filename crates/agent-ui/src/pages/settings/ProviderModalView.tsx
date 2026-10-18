@@ -988,8 +988,9 @@ export function ProviderModalView({ viewModel }: { viewModel: ProviderModalViewM
                         {(
                           [
                             ["default", "settings.providerStreamRetryDefault"],
-                            ["off", "settings.providerStreamRetryOff"],
+                            ["infinite", "settings.providerStreamRetryInfinite"],
                             ["custom", "settings.providerStreamRetryCustom"],
+                            ["off", "settings.providerStreamRetryOff"],
                           ] as const
                         ).map(([value, labelKey]) => (
                           <SettingsToggleGroupItem key={value} value={value}>

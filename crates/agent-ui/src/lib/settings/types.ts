@@ -654,7 +654,10 @@ export type CustomProvider = {
  *   1..10；0 次重试请直接选 off）。与重试状态提示"正在重试 (n/m)"的 m
  *   同一口径。
  */
-export type ProviderRetryPolicy = { mode: "off" } | { mode: "custom"; maxRetries: number };
+export type ProviderRetryPolicy =
+  | { mode: "off" }
+  | { mode: "custom"; maxRetries: number }
+  | { mode: "infinite" };
 
 export const PROVIDER_RETRY_MAX_RETRIES_LIMITS = {
   min: 1,

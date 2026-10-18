@@ -1,0 +1,103 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag name (e.g. v1.3.0)'
+        required: false
+        default: 'v1.3.0'
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: 22.19.0
+
+jobs:
+  build-windows:
+    name: Build Windows x64 EXE & Portable
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install pnpm
+        run: npm install -g pnpm@10.32.1
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Install protobuf compiler
+        run: |
+          choco install protoc -y --no-progress
+          "$env:ChocolateyInstall\lib\protoc\tools\bin" | Out-File -Append $env:GITHUB_PATH
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/agent-gui/src-tauri
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile --filter liveagent...
+
+      - name: Build Windows bundles
+        working-directory: crates/agent-gui
+        shell: bash
+        run: |
+          pnpm tauri build --target x86_64-pc-windows-msvc
+
+      - name: Stage Windows artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-dist
+          exe_path="$(find target crates/agent-gui/src-tauri/target -type f -name '*.exe' -path '*bundle*' -print -quit 2>/dev/null || true)"
+          portable_exe_path="$(find target crates/agent-gui/src-tauri/target -type f -name 'liveagent.exe' -path '*/release/*' ! -path '*bundle*' -print -quit 2>/dev/null || true)"
+          
+          tag="${{ github.event.inputs.tag || github.ref_name }}"
+          if [ -z "$tag" ]; then tag="v1.3.0"; fi
+
+          if [ -n "$exe_path" ]; then
+            cp "$exe_path" "release-dist/LiveAgent-${tag}-Windows-x64-Setup.exe"
+          fi
+
+          if [ -n "$portable_exe_path" ]; then
+            mkdir -p release-dist/portable/LiveAgent
+            cp "$portable_exe_path" release-dist/portable/LiveAgent/LiveAgent.exe
+            portable_zip="release-dist/LiveAgent-${tag}-Windows-x64-portable.zip"
+            powershell -NoProfile -Command "Compress-Archive -Path 'release-dist/portable/LiveAgent/*' -DestinationPath '$portable_zip' -Force"
+            rm -rf release-dist/portable
+          fi
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: LiveAgent-Windows-x64
+          path: release-dist/*
+          if-no-files-found: warn
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: LiveAgent ${{ github.event.inputs.tag || github.ref_name }} (Custom Enhanced)
+          body: |
+            ## LiveAgent 定制增强版
+
+            - 🎭 **人设与规则多模板并行生效**：支持 Little Code Sauce 人设与 Never Refuse 规则协同常驻，原厂大编辑框保存即时热生效。
+            - 🛡️ **无限重试机制**：新增 `mode: "infinite"` 档位，遭遇 429 限流或网络异常自动排队重试，随时可按 Esc 中断。
+            - 100% 保持原厂视觉与交互风格。
+          files: |
+            release-dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

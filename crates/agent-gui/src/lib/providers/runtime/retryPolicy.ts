@@ -20,6 +20,7 @@ export function resolveStreamRetryConfig(
 ): Pick<StreamRetryConfig, "maxAttempts" | "disabled"> {
   if (!retryPolicy) return {};
   if (retryPolicy.mode === "off") return { disabled: true };
+  if (retryPolicy.mode === "infinite") return { maxAttempts: Infinity };
   return { maxAttempts: retryPolicy.maxRetries + 1 };
 }
 

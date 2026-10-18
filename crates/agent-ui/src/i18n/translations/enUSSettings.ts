@@ -278,6 +278,7 @@ export const EN_US_SETTINGS_TRANSLATIONS = {
   "settings.providerStreamRetryDesc":
     "How many times to reconnect automatically when the connection drops before any content arrives.",
   "settings.providerStreamRetryDefault": "Default",
+  "settings.providerStreamRetryInfinite": "Infinite (∞)",
   "settings.providerStreamRetryOff": "Off",
   "settings.providerStreamRetryCustom": "Custom",
   "settings.providerStreamRetryMaxRetries": "Retry count",
@@ -848,7 +849,8 @@ export const EN_US_SETTINGS_TRANSLATIONS = {
   "settings.agentsProjectsTab": "Project prompts",
   "settings.agentsGlobalConfigTitle": "Global default prompts",
   "settings.agentsGlobalConfigHint":
-    "Only one global template can be active; enabling another automatically disables the current one.",
+    "Multiple global templates (such as personality and rules) can be enabled concurrently and will be combined in order.",
+  "settings.agentsLoadPreset": "Load Recommended Presets",
   "settings.agentsGlobalDefault": "Global default",
   "settings.agentsProjectConfigured": "Configured",
   "settings.agentsProjectUnconfigured": "Not configured",

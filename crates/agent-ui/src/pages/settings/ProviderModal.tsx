@@ -185,7 +185,7 @@ function useProviderModalController({
     initialData?.requestFormat ?? "openai-responses",
   );
   const [useSystemProxy, setUseSystemProxy] = useState(initialData?.useSystemProxy ?? false);
-  const [streamRetryMode, setStreamRetryMode] = useState<"default" | "off" | "custom">(
+  const [streamRetryMode, setStreamRetryMode] = useState<"default" | "off" | "custom" | "infinite">(
     initialData?.retryPolicy?.mode ?? "default",
   );
   // 数字输入用本地草稿字符串，blur 时 clamp（与 usageTimeoutInput 同范式）。
@@ -299,6 +299,7 @@ function useProviderModalController({
   /** default 态不落字段：与 normalizeProviderRetryPolicy 的持久层形态一致。 */
   function serializeStreamRetryPolicy(): ProviderRetryPolicy | undefined {
     if (streamRetryMode === "off") return { mode: "off" };
+    if (streamRetryMode === "infinite") return { mode: "infinite" };
     if (streamRetryMode === "custom") {
       return {
         mode: "custom",

@@ -1193,6 +1193,7 @@ function normalizeUsageQueryConfig(input: unknown): UsageQueryConfig {
 export function normalizeProviderRetryPolicy(input: unknown): ProviderRetryPolicy | undefined {
   const obj = (input && typeof input === "object" ? input : {}) as Record<string, unknown>;
   if (obj.mode === "off") return { mode: "off" };
+  if (obj.mode === "infinite") return { mode: "infinite" };
   if (obj.mode === "custom") {
     const raw = obj.maxRetries;
     if (typeof raw !== "number" || !Number.isFinite(raw)) return undefined;
@@ -2069,11 +2070,10 @@ export function resolveEffectivePromptSettings(
   settings: AppSettings,
   workdir: string,
 ): EffectivePromptSettings {
-  const globalTemplate = settings.agents.find(
+  const globalTemplates = settings.agents.filter(
     (template) => template.enabled && template.prompt.trim(),
   );
-  const globalTemplates = globalTemplate ? [globalTemplate] : [];
-  const globalPrompt = globalTemplate?.prompt.trim() ?? "";
+  const globalPrompt = globalTemplates.map((template) => template.prompt.trim()).join("\n\n");
   const pathKey = workspaceProjectPathKey(workdir);
   const entry = pathKey ? settings.system.workspaceResourceSettings[pathKey] : undefined;
   const projectPrompt = entry?.projectPrompt.trim() ?? "";
