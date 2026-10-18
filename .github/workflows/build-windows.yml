@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag name (e.g. v1.3.0)'
+        description: 'Release tag name (e.g. v1.4.0)'
         required: false
-        default: 'v1.3.0'
+        default: 'v1.4.0'
   push:
     tags:
       - "v*"
@@ -64,7 +64,7 @@ jobs:
           portable_exe_path="$(find target crates/agent-gui/src-tauri/target -type f -name 'liveagent.exe' -path '*/release/*' ! -path '*bundle*' -print -quit 2>/dev/null || true)"
           
           tag="${{ github.event.inputs.tag || github.ref_name }}"
-          if [ -z "$tag" ]; then tag="v1.3.0"; fi
+          if [ -z "$tag" ]; then tag="v1.4.0"; fi
 
           if [ -n "$exe_path" ]; then
             cp "$exe_path" "release-dist/LiveAgent-${tag}-Windows-x64-Setup.exe"
