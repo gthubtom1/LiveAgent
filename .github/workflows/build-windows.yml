@@ -53,7 +53,7 @@ jobs:
         working-directory: crates/agent-gui
         shell: bash
         run: |
-          pnpm tauri build --target x86_64-pc-windows-msvc
+          pnpm tauri build --target x86_64-pc-windows-msvc --bundles nsis
 
       - name: Stage Windows artifacts
         shell: bash
